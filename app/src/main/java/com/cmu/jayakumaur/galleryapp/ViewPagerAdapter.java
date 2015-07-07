@@ -56,8 +56,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         return NumbOfTabs;
     }
 
-//    @Override
-//    public int getItemPosition(Object obj){
-//        return ViewPagerAdapter.POSITION_NONE;
-//    }
+    @Override
+    public int getItemPosition(Object obj){
+        return ViewPagerAdapter.POSITION_NONE;
+    }
 }

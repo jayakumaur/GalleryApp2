@@ -315,7 +315,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         public void onClick(View v) {
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 if (v == mTabStrip.getChildAt(i)) {
-                    //mViewPager.getAdapter().notifyDataSetChanged();
+                    mViewPager.getAdapter().notifyDataSetChanged();
                     mViewPager.setCurrentItem(i);
                     return;
                 }
