@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GalleryApp</string>
+    <string name="tab1_name">Sensor123</string>
+    <string name="tab2_name">Locate Me</string>
+    <string name="action_settings">Settings</string>
+    <string name="idLabel_text">My Andrew ID</string>
+    <string name="idValue_text">jravisan</string>
+    <!--<string-array name="image_ids">-->
+        <!--<item>@drawable/image_1</item>-->
+        <!--<item>@drawable/image_2</item>-->
+    <!--</string-array>-->
+</resources>
