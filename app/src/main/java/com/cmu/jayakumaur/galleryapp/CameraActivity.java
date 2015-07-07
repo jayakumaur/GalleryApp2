@@ -1,6 +1,7 @@
 package com.cmu.jayakumaur.galleryapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import java.io.File;
  */
 public class CameraActivity extends Activity {
     private Button cameraButton;
-    private Intent intent;
+    private Intent intent, previewIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,8 @@ public class CameraActivity extends Activity {
                     .replace(R.id.container, Camera2BasicFragment.newInstance())
                     .commit();
         }
+//        previewIntent = new Intent();
+//        previewIntent.putExtra();
     }
 
 //    @Override

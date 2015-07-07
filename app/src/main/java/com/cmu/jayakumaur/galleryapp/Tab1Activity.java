@@ -126,4 +126,4 @@ public class Tab1Activity extends Fragment {
 
         }
     }
-    }
+}

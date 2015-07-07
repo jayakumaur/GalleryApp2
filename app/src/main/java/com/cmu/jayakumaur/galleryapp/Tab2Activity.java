@@ -28,6 +28,7 @@ public class Tab2Activity extends Fragment// implements LocationListener
              public void onClick(View v) {
                 intent = new Intent(getActivity(), CameraActivity.class);
                 getActivity().startActivity(intent);
+//                 getActivity().startActivityForResult(intent,45);
              }
          });
          return v;

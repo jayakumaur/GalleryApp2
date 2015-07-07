@@ -402,25 +402,21 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFile = new File(Environment.getExternalStorageDirectory()+"/"+Environment.DIRECTORY_DCIM+"/Camera/IMG_"
-                +new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())+".jpg");
-        /*File mFile1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyCameraApp");
-        if (!mFile1.exists()) {
-            if (!mFile1.mkdirs()) {
-                Log.d("MyCameraApp", "failed to create directory");
-            }
-        }
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile;
-        mFile = new File(mFile1.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
-        showToast("->"+mFile.getAbsolutePath());
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-        values.put(MediaStore.Images.Media.DATA, mFile.getAbsolutePath());
+        String root = Environment.getExternalStorageDirectory().toString();
+        File dir = new File(root + "/CameraApp");
+        if(!dir.exists())
+            dir.mkdirs();
+        String fileName = "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".jpg";
+        mFile = new File(dir, fileName);
 
-        getActivity().getApplicationContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-*/
+        ContentValues values = new ContentValues();
+
+        Long time = System.currentTimeMillis()/1000;
+        values.put(MediaStore.Files.FileColumns.DATE_ADDED, time);
+        values.put(MediaStore.Files.FileColumns.DATE_MODIFIED, time);
+        values.put(MediaStore.Files.FileColumns.MIME_TYPE, "image/jpeg");
+        values.put(MediaStore.Files.FileColumns.DATA, mFile.getAbsolutePath());
+        this.getActivity().getApplicationContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
     }
 
     @Override
@@ -747,6 +743,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
                                                TotalCaptureResult result) {
                     showToast("Saved: " + mFile);
                     unlockFocus();
+                    getActivity().finish();
                 }
             };
 
