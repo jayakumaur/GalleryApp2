@@ -66,6 +66,12 @@
             android:exported="true">
         </activity>
 
+        <!-- Record Video Activity-->
+        <activity
+            android:name=".RecordVideoActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

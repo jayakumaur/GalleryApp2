@@ -18,19 +18,28 @@ import android.widget.Button;
 
 public class Tab2Activity extends Fragment// implements LocationListener
  {
-     Button b;
+     Button takePhotoButton, recordVideoButton;
      Intent intent;
      @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-            View v = inflater.inflate(R.layout.camera, container, false);
-            b = (Button) v.findViewById(R.id.photoButton);
-            b.setOnClickListener(new View.OnClickListener() {
-             public void onClick(View v) {
-                intent = new Intent(getActivity(), CameraActivity.class);
-                getActivity().startActivity(intent);
-//                 getActivity().startActivityForResult(intent,45);
+         View v = inflater.inflate(R.layout.camera, container, false);
+         takePhotoButton = (Button) v.findViewById(R.id.photoButton);
+         recordVideoButton = (Button) v.findViewById(R.id.videoButton);
+        takePhotoButton.setOnClickListener(new View.OnClickListener() {
+         public void onClick(View v) {
+            intent = new Intent(getActivity(), CameraActivity.class);
+            getActivity().startActivity(intent);
+//          getActivity().startActivityForResult(intent,45);
              }
          });
+         recordVideoButton.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+                 intent = new Intent(getActivity(), RecordVideoActivity.class);
+                 getActivity().startActivity(intent);
+//              getActivity().startActivityForResult(intent,45);
+             }
+         });
+
          return v;
      }
 

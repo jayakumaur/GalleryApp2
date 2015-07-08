@@ -8,7 +8,9 @@
     <string name="button_1">Take Photo</string>
     <string name="button_2">Record Video</string>
     <string name="description_info">Info</string>
-    <!--<string name="title_activity_camera">CameraActivity</string>-->
     <string name="intro_message">Camera2 API</string>
     <string name="picture">Click Me</string>
+    <string name="btnCapture">Capture Video</string>
+    <string name="recordButton">Record</string>
+    <string name="stopButton">Stop</string>
 </resources>

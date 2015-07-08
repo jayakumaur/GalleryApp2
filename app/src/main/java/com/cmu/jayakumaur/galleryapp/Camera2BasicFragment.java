@@ -403,7 +403,8 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         String root = Environment.getExternalStorageDirectory().toString();
-        File dir = new File(root + "/CameraApp");
+//        File dir = new File(root + "/CameraApp");
+        File dir = new File(root + "/"+getResources().getString(R.string.app_name));
         if(!dir.exists())
             dir.mkdirs();
         String fileName = "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".jpg";
@@ -742,6 +743,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request,
                                                TotalCaptureResult result) {
                     showToast("Saved: " + mFile);
+                    Log.d("-----SAVED!-------->",getDisplayText());
                     unlockFocus();
                     getActivity().finish();
                 }
@@ -793,6 +795,22 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
                 break;
             }
         }
+    }
+
+    public String getDisplayText(){
+        //Andrew ID
+        String andrewID = "jravisan";
+        //Timestamp
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        // Device model
+        String PhoneModel = android.os.Build.MODEL;
+        // Android version
+        String AndroidVersion = android.os.Build.VERSION.RELEASE;
+        //Android API Level
+        int APILevel = (android.os.Build.VERSION.SDK_INT);
+
+        String displayText = andrewID+" :"+PhoneModel+"-Android "+AndroidVersion+"-API Level "+APILevel+" : "+timestamp;
+        return displayText;
     }
 
     /**
