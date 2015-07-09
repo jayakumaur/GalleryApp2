@@ -536,14 +536,14 @@ public class Camera2VideoFragment extends Fragment implements View.OnClickListen
         String fileName = getString(R.string.videoName) + new SimpleDateFormat(getString(R.string.dateformat_File)).format(new Date()) + getString(R.string.videoExt);
         mFile = new File(dir, fileName);
 
-        ContentValues values = new ContentValues();
-
-        Long time = System.currentTimeMillis()/1000;
-        values.put(MediaStore.Files.FileColumns.DATE_ADDED, time);
-        values.put(MediaStore.Files.FileColumns.DATE_MODIFIED, time);
-        values.put(MediaStore.Files.FileColumns.MIME_TYPE, "video/mp4");
-        values.put(MediaStore.Files.FileColumns.DATA, mFile.getAbsolutePath());
-        this.getActivity().getApplicationContext().getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
+//        ContentValues values = new ContentValues();
+//
+//        Long time = System.currentTimeMillis()/1000;
+//        values.put(MediaStore.Files.FileColumns.DATE_ADDED, time);
+//        values.put(MediaStore.Files.FileColumns.DATE_MODIFIED, time);
+//        values.put(MediaStore.Files.FileColumns.MIME_TYPE, "video/mp4");
+//        values.put(MediaStore.Files.FileColumns.DATA, mFile.getAbsolutePath());
+//        this.getActivity().getApplicationContext().getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
         return mFile;
     }
 

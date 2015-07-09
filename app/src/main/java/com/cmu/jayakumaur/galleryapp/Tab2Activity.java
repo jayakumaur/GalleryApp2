@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,8 @@ public class Tab2Activity extends Fragment// implements LocationListener
      String filePath = null;
      ImageView previewImage;
      VideoView previewVideo;
+     String mediaFormat = null;
+     Uri uri;
      @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
             View v = inflater.inflate(R.layout.camera, container, false);
@@ -64,20 +67,6 @@ public class Tab2Activity extends Fragment// implements LocationListener
                  startActivityForResult(intent, VID_CODE);
              }
          });
-
-         //Listener for saving the taken media file
-         saveButton.setOnClickListener(new View.OnClickListener() {
-             public void onClick(View v) {
-                Log.d(getString(R.string.alertMess), getString(R.string.alertMess2) + getDisplayText());
-                String toastMessage1 = getString(R.string.toastMess_Saved);
-                Toast.makeText(getActivity().getApplicationContext(), toastMessage1, Toast.LENGTH_SHORT).show();
-                previewImage.setImageDrawable(null);
-                previewVideo.setVisibility(View.GONE);
-                discardButton.setVisibility(View.GONE);
-                saveButton.setVisibility(View.GONE);
-             }
-         });
-
          return v;
      }
 
@@ -89,6 +78,9 @@ public class Tab2Activity extends Fragment// implements LocationListener
          switch (requestCode) {
              case(IMG_CODE):
                  previewImage.setVisibility(View.VISIBLE);
+                 mediaFormat ="image/jpeg";
+                 uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+
                  if(resultCode == Activity.RESULT_OK){
                      filePath = data.getStringExtra("imagePath");
                      //Listener for discarding the taken media file
@@ -117,6 +109,8 @@ public class Tab2Activity extends Fragment// implements LocationListener
 
              case(VID_CODE):
                  previewVideo.setVisibility(View.VISIBLE);
+                 mediaFormat ="video/mp4";
+                 uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
                  if(resultCode == Activity.RESULT_OK){
                      filePath = data.getStringExtra("videoPath");
                      previewVideo.setVideoPath(filePath);
@@ -151,6 +145,28 @@ public class Tab2Activity extends Fragment// implements LocationListener
                  }
                  break;
          }
+         //Listener for saving the taken media file
+         saveButton.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+
+                 ContentValues values = new ContentValues();
+
+                 Long time = System.currentTimeMillis()/1000;
+                 values.put(MediaStore.Files.FileColumns.DATE_ADDED, time);
+                 values.put(MediaStore.Files.FileColumns.DATE_MODIFIED, time);
+                 values.put(MediaStore.Files.FileColumns.MIME_TYPE, mediaFormat);
+                 values.put(MediaStore.Files.FileColumns.DATA, filePath);
+                 getActivity().getApplicationContext().getContentResolver().insert(uri, values);
+
+                 Log.d(getString(R.string.alertMess), getString(R.string.alertMess2) + getDisplayText());
+                 String toastMessage1 = getString(R.string.toastMess_Saved);
+                 Toast.makeText(getActivity().getApplicationContext(), toastMessage1, Toast.LENGTH_SHORT).show();
+                 previewImage.setImageDrawable(null);
+                 previewVideo.setVisibility(View.GONE);
+                 discardButton.setVisibility(View.GONE);
+                 saveButton.setVisibility(View.GONE);
+             }
+         });
 
      }
 
