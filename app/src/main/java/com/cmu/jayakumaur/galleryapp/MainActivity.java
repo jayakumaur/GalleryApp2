@@ -18,6 +18,7 @@ public class MainActivity extends ActionBarActivity {
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
     CharSequence Titles[]={"UNIVERSAL PLAYER","TAKE PHOTO/VIDEO"};
+//    CharSequence Titles[]={getString(R.string.tab1_name),getString(R.string.tab2_name)};
     int Numboftabs =2;
 
     @Override

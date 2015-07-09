@@ -46,7 +46,6 @@ public class Tab1Activity extends Fragment {
 
                 Intent intent;
                 //Create intent based on the file type.
-                Log.d("----------->"+fileNameStrings[position]+"----",fileNameExtensions[position].toString());
                 if(fileNameExtensions[position] == 3){
                     intent = new Intent(getActivity(),VideoActivity.class);
                 }

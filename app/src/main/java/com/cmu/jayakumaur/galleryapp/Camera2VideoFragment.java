@@ -533,7 +533,7 @@ public class Camera2VideoFragment extends Fragment implements View.OnClickListen
         File dir = new File(root + "/"+getResources().getString(R.string.app_name));
         if(!dir.exists())
             dir.mkdirs();
-        String fileName = "VID_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".mp4";
+        String fileName = getString(R.string.videoName) + new SimpleDateFormat(getString(R.string.dateformat_File)).format(new Date()) + getString(R.string.videoExt);
         mFile = new File(dir, fileName);
 
         ContentValues values = new ContentValues();
@@ -572,7 +572,7 @@ public class Camera2VideoFragment extends Fragment implements View.OnClickListen
         if (null != activity) {
 //            Toast.makeText(activity, "Video saved: " + mFile.getAbsolutePath(),
 //                    Toast.LENGTH_LONG).show();
-            Toast.makeText(activity, "Video Captured",Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, getString(R.string.toastMess_Captured),Toast.LENGTH_LONG).show();
         }
         Intent imageIntent = new Intent();
         imageIntent.putExtra("videoPath",mFile.getAbsolutePath());

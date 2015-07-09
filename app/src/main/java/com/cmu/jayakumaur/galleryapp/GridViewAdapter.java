@@ -117,8 +117,4 @@ public class GridViewAdapter extends BaseAdapter {
         } catch (FileNotFoundException e) {}
         return null;
     }
-//    static class ViewHolder {
-//        ImageView image;
-//        VideoView video;
-//    }
 }

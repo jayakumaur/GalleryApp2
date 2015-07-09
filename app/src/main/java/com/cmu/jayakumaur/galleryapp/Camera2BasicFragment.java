@@ -1,21 +1,6 @@
 package com.cmu.jayakumaur.galleryapp;
-/*
- * Copyright 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
-        import android.app.Activity;
+import android.app.Activity;
         import android.app.AlertDialog;
         import android.app.Dialog;
         import android.app.DialogFragment;
@@ -408,7 +393,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
         File dir = new File(root + "/"+getResources().getString(R.string.app_name));
         if(!dir.exists())
             dir.mkdirs();
-        String fileName = "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".jpg";
+        String fileName = getString(R.string.imageName) + new SimpleDateFormat(getString(R.string.dateformat_File)).format(new Date()) + getString(R.string.imageExt);
         mFile = new File(dir, fileName);
 
         ContentValues values = new ContentValues();
@@ -743,7 +728,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request,
                                                TotalCaptureResult result) {
-                    showToast("Image Captured!");
+                    showToast(getString(R.string.toastMess_Captured));
                     unlockFocus();
 
                     Intent imageIntent = new Intent();
@@ -802,21 +787,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    public String getDisplayText(){
-        //Andrew ID
-        String andrewID = "jravisan";
-        //Timestamp
-        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        // Device model
-        String PhoneModel = android.os.Build.MODEL;
-        // Android version
-        String AndroidVersion = android.os.Build.VERSION.RELEASE;
-        //Android API Level
-        int APILevel = (android.os.Build.VERSION.SDK_INT);
 
-        String displayText = andrewID+" :"+PhoneModel+"-Android "+AndroidVersion+"-API Level "+APILevel+" : "+timestamp;
-        return displayText;
-    }
 
     /**
      * Saves a JPEG {@link Image} into the specified {@link File}.

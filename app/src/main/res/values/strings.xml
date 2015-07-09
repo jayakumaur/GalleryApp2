@@ -7,10 +7,27 @@
     <string name="idValue_text">jravisan</string>
     <string name="button_1">Take Photo</string>
     <string name="button_2">Record Video</string>
+    <string name="button_Save">Save</string>
+    <string name="button_Discard">Discard</string>
     <string name="description_info">Info</string>
     <string name="intro_message">Camera2 API</string>
     <string name="picture">Click Me</string>
     <string name="btnCapture">Capture Video</string>
     <string name="recordButton">Record</string>
     <string name="stopButton">Stop</string>
+    <string name="alertMess">--ALERTMSG----></string>
+    <string name="alertMess2">"MEDIA FILE SAVED!:"</string>
+    <string name="toastMess_Deleted">Deleted</string>
+    <string name="toastMess_UnableToDelete">Unable To Delete</string>
+    <string name="toastMess_Saved">Saved</string>
+    <string name="toastMess_Captured">Captured</string>
+    <string name="datetimeFormat">yyyy-MM-dd HH:mm:ss</string>
+    <string name="andrewID">jravisan</string>
+    <string name="dateformat_File">yyyyMMdd_HHmmss</string>
+    <string name="imageName">IMG_</string>
+    <string name="imageExt">.jpg</string>
+    <string name="videoName">VID_</string>
+    <string name="videoExt">.mp4</string>
+
+
 </resources>

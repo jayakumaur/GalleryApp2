@@ -24,10 +24,10 @@
         android:required="true" />
     <uses-feature
         android:name="android.hardware.camera.front"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="true" />
+        android:required="false"/>
+    <!--<uses-feature-->
+        <!--android:name="android.hardware.camera.autofocus"-->
+        <!--android:required="true" />-->
 
     <application
         android:allowBackup="true"

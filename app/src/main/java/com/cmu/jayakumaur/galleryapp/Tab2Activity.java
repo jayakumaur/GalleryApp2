@@ -1,6 +1,7 @@
 package com.cmu.jayakumaur.galleryapp;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -67,8 +68,8 @@ public class Tab2Activity extends Fragment// implements LocationListener
          //Listener for saving the taken media file
          saveButton.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
-                Log.d("--ALERTMSG---->", "MEDIA FILE SAVED!:" + getDisplayText());
-                String toastMessage1 = "Saved";
+                Log.d(getString(R.string.alertMess), getString(R.string.alertMess2) + getDisplayText());
+                String toastMessage1 = getString(R.string.toastMess_Saved);
                 Toast.makeText(getActivity().getApplicationContext(), toastMessage1, Toast.LENGTH_SHORT).show();
                 previewImage.setImageDrawable(null);
                 previewVideo.setVisibility(View.GONE);
@@ -97,11 +98,11 @@ public class Tab2Activity extends Fragment// implements LocationListener
                              if (new File(filePath).exists()) {
                                  previewImage.setImageDrawable(null);
                                  if (new File(filePath).delete()) {
-                                     String toastMessage = "Deleted";
+                                     String toastMessage = getString(R.string.toastMess_Deleted);
                                      Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
                                  }
                              } else{
-                                 String toastMessage = "Unable to delete";
+                                 String toastMessage = getString(R.string.toastMess_UnableToDelete);
                                  Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
                          }
                          discardButton.setVisibility(View.GONE);
@@ -127,11 +128,11 @@ public class Tab2Activity extends Fragment// implements LocationListener
                              if (videoFile.exists()) {
                                  previewImage.setImageDrawable(null);
                                  if (videoFile.delete()) {
-                                     String toastMessage = "Deleted";
+                                     String toastMessage = getString(R.string.toastMess_Deleted);
                                      Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
                                  }
                              } else{
-                                 String toastMessage = "Unable to delete";
+                                 String toastMessage = getString(R.string.toastMess_UnableToDelete);
                                  Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
                              }
                              previewVideo.setVisibility(View.GONE);
@@ -180,9 +181,9 @@ public class Tab2Activity extends Fragment// implements LocationListener
 
      public String getDisplayText(){
          //Andrew ID
-         String andrewID = "jravisan";
+         String andrewID = getString(R.string.andrewID);
          //Timestamp
-         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+         String timestamp = new SimpleDateFormat(getString(R.string.datetimeFormat)).format(new Date());
          // Device model
          String PhoneModel = android.os.Build.MODEL;
          // Android version
