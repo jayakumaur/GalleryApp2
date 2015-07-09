@@ -6,6 +6,8 @@ import android.content.CursorLoader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -116,5 +118,15 @@ public class GridViewAdapter extends BaseAdapter {
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
         } catch (FileNotFoundException e) {}
         return null;
+    }
+    public Bitmap putOverlay(Bitmap bmp1, Bitmap overlay) {
+        Bitmap bmOverlay = Bitmap.createBitmap(bmp1.getWidth(), bmp1.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmOverlay);
+        Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
+
+        canvas.drawBitmap(bmp1, 0, 0, null);
+        canvas.drawBitmap(overlay, 0, 0, null);
+
+        return bmOverlay;
     }
 }
