@@ -23,6 +23,7 @@ package com.cmu.jayakumaur.galleryapp;
         import android.content.ContentValues;
         import android.content.Context;
         import android.content.DialogInterface;
+        import android.content.Intent;
         import android.content.res.Configuration;
         import android.graphics.Camera;
         import android.graphics.ImageFormat;
@@ -742,13 +743,17 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request,
                                                TotalCaptureResult result) {
-                    showToast("Saved: " + mFile);
-                    Log.d("-----SAVED!-------->",getDisplayText());
+                    showToast("Image Captured!");
                     unlockFocus();
-                    getActivity().finish();
+
+                    Intent imageIntent = new Intent();
+                    imageIntent.putExtra("imagePath",mFile.getAbsolutePath());
+                    activity.setResult(Activity.RESULT_OK, imageIntent);
+                    Log.d("--------->", "AT CaptureComplete");
+                    activity.finish();
+                    Log.d("--------->", "Activity Completed");
                 }
             };
-
             mCaptureSession.stopRepeating();
             mCaptureSession.capture(captureBuilder.build(), CaptureCallback, null);
         } catch (CameraAccessException e) {

@@ -93,7 +93,6 @@ public class Tab2Activity extends Fragment// implements LocationListener
                      //Listener for discarding the taken media file
                      discardButton.setOnClickListener(new View.OnClickListener() {
                          public void onClick(View v) {
-
 //                             File imageFile = new File(filePath);
                              if (new File(filePath).exists()) {
                                  previewImage.setImageDrawable(null);

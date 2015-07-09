@@ -5,10 +5,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
@@ -21,6 +24,7 @@ import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -120,6 +124,8 @@ public class Camera2VideoFragment extends Fragment implements View.OnClickListen
      * The {@link Size} of camera preview.
      */
     private Size mPreviewSize;
+
+    private File mFile;
 
     /**
      * The {@link Size} of video recording.
@@ -344,15 +350,11 @@ public class Camera2VideoFragment extends Fragment implements View.OnClickListen
 
 
             for(final String cameraID : manager.getCameraIdList()){
-                Log.d("CameraID:", cameraID);
                 CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraID);
                 int cOrientation = characteristics.get(CameraCharacteristics.LENS_FACING);
 //                if(cOrientation == CameraCharacteristics.LENS_FACING_FRONT)
 //                    cameraId= cameraID;
             }
-
-            Log.d("CameraID:", cameraId);
-
 
             // Choose the sizes for camera preview and video recording
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
@@ -512,7 +514,8 @@ public class Camera2VideoFragment extends Fragment implements View.OnClickListen
         mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
         mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        mMediaRecorder.setOutputFile(getVideoFile(activity).getAbsolutePath());
+        mFile = getVideoFile(activity);
+        mMediaRecorder.setOutputFile(mFile.getAbsolutePath());
         mMediaRecorder.setVideoEncodingBitRate(10000000);
         mMediaRecorder.setVideoFrameRate(30);
         mMediaRecorder.setVideoSize(mVideoSize.getWidth(), mVideoSize.getHeight());
@@ -561,17 +564,20 @@ public class Camera2VideoFragment extends Fragment implements View.OnClickListen
         // UI
         mIsRecordingVideo = false;
         mButtonVideo.setText(R.string.recordButton);
+        mButtonVideo.setVisibility(View.GONE);
         // Stop recording
         mMediaRecorder.stop();
         mMediaRecorder.reset();
         Activity activity = getActivity();
         if (null != activity) {
-            Toast.makeText(activity, "Video saved: " + getVideoFile(activity),
-                    Toast.LENGTH_LONG).show();
-            Log.d("Video saved: " + getVideoFile(activity), "<<------------------");
-            Log.d("-----SAVED!-------->",getDisplayText());
+//            Toast.makeText(activity, "Video saved: " + mFile.getAbsolutePath(),
+//                    Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Video Captured",Toast.LENGTH_LONG).show();
         }
-        startPreview();
+        Intent imageIntent = new Intent();
+        imageIntent.putExtra("videoPath",mFile.getAbsolutePath());
+        activity.setResult(Activity.RESULT_OK, imageIntent);
+        activity.finish();
     }
 
     /**
@@ -586,21 +592,6 @@ public class Camera2VideoFragment extends Fragment implements View.OnClickListen
                     (long) rhs.getWidth() * rhs.getHeight());
         }
 
-    }
-    public String getDisplayText(){
-        //Andrew ID
-        String andrewID = "jravisan";
-        //Timestamp
-        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        // Device model
-        String PhoneModel = android.os.Build.MODEL;
-        // Android version
-        String AndroidVersion = android.os.Build.VERSION.RELEASE;
-        //Android API Level
-        int APILevel = (android.os.Build.VERSION.SDK_INT);
-
-        String displayText = andrewID+" :"+PhoneModel+"-Android "+AndroidVersion+"-API Level "+APILevel+" : "+timestamp;
-        return displayText;
     }
 
     public static class ErrorDialog extends DialogFragment {

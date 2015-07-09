@@ -24,4 +24,44 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    <ImageView
+        android:id="@+id/previewImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:layout_above="@+id/saveButton"
+        android:layout_below="@+id/photoButton"
+        android:visibility="invisible"/>
+    <VideoView
+        android:id="@+id/previewVideo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:layout_above="@+id/saveButton"
+        android:layout_alignTop="@+id/previewImage"
+        android:visibility="invisible"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/saveButton"
+        android:layout_gravity="left|bottom"
+        android:layout_alignTop="@+id/discardButton"
+        android:layout_alignEnd="@+id/videoButton"
+        android:visibility="invisible"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discard"
+        android:id="@+id/discardButton"
+        android:layout_gravity="right|bottom"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/photoButton" />
 </RelativeLayout>

@@ -26,7 +26,6 @@ public class VideoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_activity);
-        Log.d("---------------->","Reached Video Activity");
         Intent i = getIntent();
 
         // Get the position
