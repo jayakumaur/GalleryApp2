@@ -45,6 +45,8 @@ public class Tab2Activity extends Fragment// implements LocationListener
      @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
             View v = inflater.inflate(R.layout.camera, container, false);
+
+            //instantiating the button objects
             takePhotoButton = (Button) v.findViewById(R.id.photoButton);
             recordVideoButton = (Button) v.findViewById(R.id.videoButton);
             saveButton = (Button) v.findViewById(R.id.saveButton);
@@ -77,30 +79,13 @@ public class Tab2Activity extends Fragment// implements LocationListener
          saveButton.setVisibility(View.VISIBLE);
          switch (requestCode) {
              case(IMG_CODE):
+                //Media File is an Image
                  previewImage.setVisibility(View.VISIBLE);
                  mediaFormat ="image/jpeg";
                  uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-
                  if(resultCode == Activity.RESULT_OK){
                      filePath = data.getStringExtra("imagePath");
-                     //Listener for discarding the taken media file
-                     discardButton.setOnClickListener(new View.OnClickListener() {
-                         public void onClick(View v) {
-//                             File imageFile = new File(filePath);
-                             if (new File(filePath).exists()) {
-                                 previewImage.setImageDrawable(null);
-                                 if (new File(filePath).delete()) {
-                                     String toastMessage = getString(R.string.toastMess_Deleted);
-                                     Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
-                                 }
-                             } else{
-                                 String toastMessage = getString(R.string.toastMess_UnableToDelete);
-                                 Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
-                         }
-                         discardButton.setVisibility(View.GONE);
-                         saveButton.setVisibility(View.GONE);
-                     }
-                 });
+                     //Setting up image preview
                      previewImage.setVisibility(View.VISIBLE);
                      Bitmap myBitmap = decodeFile(new File(filePath));
                      previewImage.setImageBitmap(myBitmap);
@@ -108,49 +93,50 @@ public class Tab2Activity extends Fragment// implements LocationListener
                  break;
 
              case(VID_CODE):
+                 //Media File is an Image
                  previewVideo.setVisibility(View.VISIBLE);
                  mediaFormat ="video/mp4";
                  uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
                  if(resultCode == Activity.RESULT_OK){
                      filePath = data.getStringExtra("videoPath");
+                     //Setting up video preview
                      previewVideo.setVideoPath(filePath);
                      previewVideo.start();
-                     //Listener for discarding the taken media file
-                     discardButton.setOnClickListener(new View.OnClickListener() {
-                         public void onClick(View v) {
-                             File videoFile = new File(filePath);
-                             if (videoFile.exists()) {
-                                 previewImage.setImageDrawable(null);
-                                 if (videoFile.delete()) {
-                                     String toastMessage = getString(R.string.toastMess_Deleted);
-                                     Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
-                                 }
-                             } else{
-                                 String toastMessage = getString(R.string.toastMess_UnableToDelete);
-                                 Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
-                             }
-                             previewVideo.setVisibility(View.GONE);
-                             discardButton.setVisibility(View.GONE);
-                             saveButton.setVisibility(View.GONE);
-                         }
-                     });
-                     Bitmap thumbnailBitmap;
-                     previewImage.setVisibility(View.VISIBLE);
-                     BitmapFactory.Options options=new BitmapFactory.Options();
-                     options.inSampleSize = 1;
-                     thumbnailBitmap = ThumbnailUtils.createVideoThumbnail(filePath,
-                             MediaStore.Video.Thumbnails.MICRO_KIND);
-//                     Bitmap myBitmap = decodeFile(new File(filePath));
-                     previewImage.setImageBitmap(thumbnailBitmap);
                  }
                  break;
          }
+         //Listener for discarding the taken media file
+         discardButton.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+                 //Obtaining the mediafile handler
+                 File mediaFile = new File(filePath);
+                 if (mediaFile.exists()) {
+                     previewImage.setImageDrawable(null);
+
+                     if (mediaFile.delete()) {
+                         //Discarding the mediafile and providing user notification
+                         String toastMessage = getString(R.string.toastMess_Deleted);
+                         Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+                     }
+                 } else{
+                     //mediaFile not available for deletion
+                     String toastMessage = getString(R.string.toastMess_UnableToDelete);
+                     Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+                 }
+
+                 //Doing away with the elements
+                 previewVideo.setVisibility(View.GONE);
+                 previewImage.setVisibility(View.GONE);
+                 discardButton.setVisibility(View.GONE);
+                 saveButton.setVisibility(View.GONE);
+             }
+         });
+
          //Listener for saving the taken media file
          saveButton.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
-
-                 ContentValues values = new ContentValues();
-
+                //Setting the contentvalues - MediaStore settings
+                ContentValues values = new ContentValues();
                  Long time = System.currentTimeMillis()/1000;
                  values.put(MediaStore.Files.FileColumns.DATE_ADDED, time);
                  values.put(MediaStore.Files.FileColumns.DATE_MODIFIED, time);
@@ -158,9 +144,14 @@ public class Tab2Activity extends Fragment// implements LocationListener
                  values.put(MediaStore.Files.FileColumns.DATA, filePath);
                  getActivity().getApplicationContext().getContentResolver().insert(uri, values);
 
+                 //Logging the device details whenever a mediaFile is saved
                  Log.d(getString(R.string.alertMess), getString(R.string.alertMess2) + getDisplayText());
+
+                 //Providing user notification that the mediaFile has been saved
                  String toastMessage1 = getString(R.string.toastMess_Saved);
                  Toast.makeText(getActivity().getApplicationContext(), toastMessage1, Toast.LENGTH_SHORT).show();
+
+                 //Doing away with the elements
                  previewImage.setImageDrawable(null);
                  previewVideo.setVisibility(View.GONE);
                  discardButton.setVisibility(View.GONE);
@@ -207,6 +198,7 @@ public class Tab2Activity extends Fragment// implements LocationListener
          //Android API Level
          int APILevel = (android.os.Build.VERSION.SDK_INT);
 
+         //Final text to be displayed
          String displayText = andrewID+" :"+PhoneModel+"-Android "+AndroidVersion+"-API Level "+APILevel+" : "+timestamp;
          return displayText;
      }

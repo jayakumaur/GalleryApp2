@@ -5,18 +5,15 @@ import android.app.Activity;
         import android.app.Dialog;
         import android.app.DialogFragment;
         import android.app.Fragment;
-        import android.content.ContentValues;
-        import android.content.Context;
+import android.content.Context;
         import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.res.Configuration;
-        import android.graphics.Camera;
-        import android.graphics.ImageFormat;
+import android.graphics.ImageFormat;
         import android.graphics.Matrix;
         import android.graphics.RectF;
         import android.graphics.SurfaceTexture;
-        import android.hardware.camera2.*;
-        import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraAccessException;
         import android.hardware.camera2.CameraCaptureSession;
         import android.hardware.camera2.CameraCharacteristics;
         import android.hardware.camera2.CameraDevice;
@@ -33,8 +30,7 @@ import android.app.Activity;
         import android.os.Handler;
         import android.os.HandlerThread;
         import android.os.Message;
-        import android.provider.MediaStore;
-        import android.util.Log;
+import android.util.Log;
         import android.util.Size;
         import android.util.SparseIntArray;
         import android.view.LayoutInflater;
@@ -60,7 +56,7 @@ import android.app.Activity;
         import java.util.concurrent.TimeUnit;
 
 
-public class Camera2BasicFragment extends Fragment implements View.OnClickListener {
+public class Camera2ImageFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Conversion from screen rotation to JPEG orientation.
@@ -77,7 +73,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
     /**
      * Tag for the {@link Log}.
      */
-    private static final String TAG = "Camera2BasicFragment";
+    private static final String TAG = "Camera2ImageFragment";
 
     /**
      * Camera state: Showing camera preview.
@@ -366,8 +362,8 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    public static Camera2BasicFragment newInstance() {
-        Camera2BasicFragment fragment = new Camera2BasicFragment();
+    public static Camera2ImageFragment newInstance() {
+        Camera2ImageFragment fragment = new Camera2ImageFragment();
         fragment.setRetainInstance(true);
         return fragment;
     }
@@ -494,7 +490,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
     }
 
     /**
-     * Opens the camera specified by {@link Camera2BasicFragment#mCameraId}.
+     * Opens the camera specified by {@link Camera2ImageFragment#mCameraId}.
      */
     private void openCamera(int width, int height) {
         setUpCameraOutputs(width, height);
