@@ -17,7 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.cmu.jayakumaur.galleryapp.AutoFitTextureView
+    <edu.cmu.m08723.jravisan.galleryapp2.AutoFitTextureView
         android:id="@+id/texture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
