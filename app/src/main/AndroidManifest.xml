@@ -72,6 +72,22 @@
             android:exported="true">
         </activity>
 
+        <!-- Tweet Activity-->
+        <activity
+            android:name=".TweetActivity"
+            android:exported="true">
+        </activity>
+        <!-- WebView Activity-->
+        <activity
+            android:name=".WebViewActivity"
+            android:exported="true">
+        </activity>
+        <!-- DisplayTweetActivity Activity-->
+        <activity
+            android:name=".DisplayTweetActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

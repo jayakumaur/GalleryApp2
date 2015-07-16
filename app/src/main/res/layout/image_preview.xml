@@ -26,7 +26,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="87dp"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="@string/button_Save"
         android:id="@+id/saveButton"
         android:layout_gravity="left|bottom" />
 
@@ -34,7 +34,15 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Discard"
+        android:text="@string/button_Discard"
         android:id="@+id/discardButton"
         android:layout_gravity="right|bottom" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_Tweet"
+        android:id="@+id/tweetButton"
+        android:layout_gravity="center_horizontal|bottom" />
 </FrameLayout>

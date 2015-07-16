@@ -2,6 +2,7 @@
     <string name="app_name">GalleryApp2</string>
     <string name="tab1_name">UNIVERSAL PLAYER</string>
     <string name="tab2_name">TAKE PHOTO/VIDEO</string>
+    <string name="tab3_name">TIMELINE</string>
     <string name="action_settings">Settings</string>
     <string name="idLabel_text">My Andrew ID</string>
     <string name="idValue_text">jravisan</string>
@@ -9,6 +10,8 @@
     <string name="button_2">Record Video</string>
     <string name="button_Save">Save</string>
     <string name="button_Discard">Discard</string>
+    <string name="button_Share">Tweet</string>
+    <string name="button_Tweet">Tweet</string>
     <string name="description_info">Info</string>
     <string name="intro_message">Camera2 API</string>
     <string name="picture">Click Me</string>
@@ -28,6 +31,14 @@
     <string name="imageExt">.jpg</string>
     <string name="videoName">VID_</string>
     <string name="videoExt">.mp4</string>
+    <string name="share_instructions">Enter your message here..</string>
+    <string name="hello">Hello, </string>
+    <string name="login_instructions">Login to twiter</string>
+    <string name="btn_login">Login to Twitter</string>
 
-
+    <!-- Twitter Configurations -->
+    <string name="twitter_callback">http://javatechig.android.app</string>
+    <string name="twitter_consumer_key">OS93QCdpQmPawuUJjhp9VSEnu</string>
+    <string name="twitter_consumer_secret">XDYPWuDSnLEoBxI6MFfErtKwmz44ciQebWIX73nUFhHz4cDWpW</string>
+    <string name="twitter_oauth_verifier">oauth_verifier</string>
 </resources>

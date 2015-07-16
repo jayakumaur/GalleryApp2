@@ -52,7 +52,18 @@
         android:layout_gravity="left|bottom"
         android:layout_alignTop="@+id/discardButton"
         android:layout_alignEnd="@+id/videoButton"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        />
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:id="@+id/tweetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_Tweet"
+        android:layout_gravity="center_horizontal|bottom"
+        android:visibility="invisible"
+        android:layout_alignTop="@+id/saveButton"
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
