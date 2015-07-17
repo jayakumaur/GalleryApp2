@@ -47,7 +47,7 @@ public class ListViewAdapter extends BaseAdapter{
     }
 //    @Override
     public Object getItem(int position) {
-        return position;
+        return statusList.get(position);
     }
 
 //    @Override
@@ -55,6 +55,10 @@ public class ListViewAdapter extends BaseAdapter{
         return position;
     }
 
+    public void addItems(List<Status> newList){
+        statusList.clear();
+        statusList.addAll(newList);
+    }
 //    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;

@@ -27,17 +27,19 @@ public class DisplayTweetActivity extends Activity {
 
         String id = i.getStringExtra("tweetid");
         String username = i.getStringExtra("username");
+        String mediaURL = i.getStringExtra("mediaURL");
         String url = "https://twitter.com/"+username+"/status/"+id.toString();
-        Log.d("-------->", url);
+        String htmlContent = "<html><body><img src=\""+mediaURL+"\" height=100 width=100></body></html>";
         // Locate the ImageView in view_image.xml
         webView = (WebView) findViewById(R.id.tweetWebView);
 
         // Set the Settings for loading the tweet
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl(url);
+//        webView.loadUrl(mediaURL);
+        if(mediaURL!=null) {
+            webView.loadData(htmlContent, "text/HTML", "UTF-8");
+        }
         webView.setWebViewClient(new WebViewClient());
-
-
     }
 }
