@@ -2,6 +2,7 @@ package edu.cmu.m08723.jravisan.galleryapp2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.URLEntity;
 import twitter4j.conf.ConfigurationBuilder;
 
 /**
@@ -38,6 +36,14 @@ public class Tab3Fragment extends Fragment implements SwipeRefreshLayout.OnRefre
     ListViewAdapter listViewAdapter = null;
     SwipeRefreshLayout swipeRefreshLayout;
     Activity activity;
+    SharedPreferences mSharedPreferences;
+
+    private static final String PREF_NAME = "sample_twitter_pref";
+    private static final String PREF_KEY_OAUTH_TOKEN = "oauth_token";
+    private static final String PREF_KEY_OAUTH_SECRET = "oauth_token_secret";
+    private static final String PREF_KEY_TWITTER_LOGIN = "is_twitter_loggedin";
+    private static final String PREF_USER_NAME = "twitter_user_name";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.timeline, container, false);
@@ -113,7 +119,11 @@ public class Tab3Fragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 tf = new TwitterFactory(cb.build());
                 twitter = tf.getInstance();
                 try {
-                    user = twitter.verifyCredentials().getScreenName();
+                    mSharedPreferences = getActivity().getSharedPreferences(PREF_NAME, 0);
+//                    boolean isLoggedIn = mSharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
+//                    user = twitter.verifyCredentials().getScreenName();
+                    user = mSharedPreferences.getString("twitter_user_name",getString(R.string.twitter_handle));
+
                     statuses = twitter.getUserTimeline(user);
                 }catch (TwitterException e){
                     e.printStackTrace();
@@ -136,7 +146,7 @@ public class Tab3Fragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                         Intent intent;
                         //Create intent based on the file type.
-                        intent = new Intent(getActivity(), DisplayTweetActivity.class);
+                        intent = new Intent(getActivity(), TimelineActivity.class);
                         //Addition of status details to the intent.
                         intent.putExtra("username", statuses.get(position).getUser().getScreenName());
                         intent.putExtra("tweetid", String.valueOf(statuses.get(position).getId()));
@@ -144,7 +154,7 @@ public class Tab3Fragment extends Fragment implements SwipeRefreshLayout.OnRefre
                             if (statuses.get(position).getMediaEntities().length > 0) {
                                 intent.putExtra("mediaURL", statuses.get(position).getMediaEntities()[0].getMediaURL());
                             }
-                        }catch(Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         //Start the respective details activity.
